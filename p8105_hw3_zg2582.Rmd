@@ -1,0 +1,6 @@
+---
+title: "p8105_hw3_zg2582"
+author: "Zaixin Gao"
+date: "2026-10-16"
+output: github_document
+---
