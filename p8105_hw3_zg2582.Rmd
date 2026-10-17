@@ -7,7 +7,7 @@ output: github_document
 
 ### Problem 1
 
-```{r setup, message = FALSE}
+```{r setup}
 library(tidyverse)
 library(p8105.datasets)
 library(patchwork)
@@ -29,4 +29,18 @@ options(
 
 ```{r load_noaa}
 data("ny_noaa")
+```
+
+```{r }
+## A noaa sumnary
+n_stations = n_distinct(pull(ny_noaa, id))
+first_date = min(pull(ny_noaa, date))
+last_date = max(pull(ny_noaa, date))
+
+n_rows = nrow(ny_noaa)
+n_cols = ncol(ny_noaa)
+
+pct_missing_prcp = round(mean(is.na(pull(ny_noaa, prcp))) * 100, 1)
+pct_missing_snow = round(mean(is.na(pull(ny_noaa, snow))) * 100, 1)
+pct_missing_tmax = round(mean(is.na(pull(ny_noaa, tmax))) * 100, 1)
 ```
