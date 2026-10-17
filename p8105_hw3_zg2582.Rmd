@@ -26,3 +26,7 @@ options(
   ggplot2.continuous.fill = "viridis"
 )
 ```
+
+```{r load_noaa}
+data("ny_noaa")
+```
