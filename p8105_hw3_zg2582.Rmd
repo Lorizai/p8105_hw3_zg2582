@@ -96,3 +96,34 @@ Average max temperatures in July is around 25–30°C and are much higher than i
 January (-5 to 5°C), and January varies more from year to year. 
 There are a few outliers, such as individual stations with a super
 cold July or January compared with others in the same year.
+
+
+### Make a two-panel plot showing (i) tmax vs tmin for the full dataset (note that a scatterplot may not be the best option); and (ii) make a plot showing the distribution of snowfall values greater than 0 and less than 100 separately by year.
+
+```{r warning = FALSE, fig.asp = 1}
+tmax_tmin_plot =
+  noaa_df |>
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_hex() +
+  labs(
+    title = "Max vs. min temperature",
+    x = "Min temp (°C)",
+    y = "Max temp (°C)"
+  ) +
+  theme(legend.position = "right")
+
+snow_plot =
+  noaa_df |>
+  filter(snow > 0, snow < 100) |>
+  mutate(year = factor(year)) |>
+  ggplot(aes(x = snow, y = year)) +
+  geom_density_ridges(scale = .85) +
+  labs(
+    title = "Snowfall by year",
+    x = "Snowfall (mm)",
+    y = "Year"
+  )
+
+tmax_tmin_plot + snow_plot
+```
+
