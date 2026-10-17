@@ -42,3 +42,20 @@ pct_missing_prcp = round(mean(is.na(pull(ny_noaa, prcp))) * 100, 1)
 pct_missing_snow = round(mean(is.na(pull(ny_noaa, snow))) * 100, 1)
 pct_missing_tmax = round(mean(is.na(pull(ny_noaa, tmax))) * 100, 1)
 ```
+
+The dataset contains daily weather records from 747 weather stations in New York, from 1981-01-01 to 2010-12-31. It has 2595176 rows and 7 columns. Missing data is a major issue, especially for maximum temperature, 43.7% of values are missing, compared with 14.7% of snowfall and 5.6% of precipitation values.
+
+```{r}
+## Data cleaning
+ny_noaa |> drop_na(tmax) |> pull(tmax) |> head()
+
+noaa_df =
+  ny_noaa |> separate(date, into = c("year", "month", "day"), sep = "-") |>
+  mutate(
+    year = as.numeric(year),
+    month = as.numeric(month),
+    day = as.numeric(day),
+    tmax = as.numeric(tmax) / 10,
+    tmin = as.numeric(tmin) / 10,
+    prcp = prcp / 10)
+```
