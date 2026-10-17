@@ -70,3 +70,29 @@ noaa_df |>
 
 The most common snowfall value is 0, because it does not snow on most days 
 of the year. 
+
+
+### Make a two-panel plot showing the average max temperature in January and in July in each station across years. Is there any observable / interpretable structure? Any outliers?
+
+```{r warning = FALSE}
+noaa_df |>
+  filter(month == 1 | month == 7) |>
+  mutate(month = case_match(month, 1 ~ "January", 7 ~ "July")) |>
+  group_by(id, year, month) |>
+  summarize(mean_tmax = mean(tmax, na.rm = TRUE)) |>
+  drop_na(mean_tmax) |>
+  ggplot(aes(x = year, y = mean_tmax, group = id)) +
+  geom_point(alpha = .3, size = .5) +
+  geom_line(alpha = .3) +
+  facet_grid(. ~ month) +
+  labs(
+    title = "Average max temperature by station",
+    x = "Year",
+    y = "Average max temperature in °C"
+  )
+```
+
+Average max temperatures in July is around 25–30°C and are much higher than in 
+January (-5 to 5°C), and January varies more from year to year. 
+There are a few outliers, such as individual stations with a super
+cold July or January compared with others in the same year.
