@@ -127,3 +127,4 @@ snow_plot =
 tmax_tmin_plot + snow_plot
 ```
 
+Max and min temperature have a strong positive relationship. And the snowfall distributions are very similar across years.
