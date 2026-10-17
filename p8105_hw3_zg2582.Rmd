@@ -59,3 +59,14 @@ noaa_df =
     tmin = as.numeric(tmin) / 10,
     prcp = prcp / 10)
 ```
+
+### For snowfall, what are the most commonly observed values? Why?
+
+```{r snow_common}
+noaa_df |>
+  count(snow) |>
+  arrange(desc(n))
+```
+
+The most common snowfall value is 0, because it does not snow on most days 
+of the year. 
