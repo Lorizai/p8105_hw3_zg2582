@@ -314,3 +314,24 @@ citibike_df |>
   arrange(desc(n)) |>
   knitr::kable(col.names = c("Starting station", "Number of rides"))
 ```
+
+
+### Make a plot to investigate the effects of day of the week, month, and year on median ride duration. This plot can include one or more panels, but should facilitate comparison across all variables of interest. Comment on your observations from this plot.
+
+```{r median_duration_plot, message = FALSE}
+citibike_df |>
+  group_by(year, month, weekdays) |>
+  summarize(median_duration = median(duration)) |>
+  ggplot(aes(x = weekdays, y = median_duration, color = month, group = month)) +
+  geom_point() +
+  geom_line() +
+  facet_grid(. ~ year) +
+  labs(
+    title = "Median ride duration by day of week, month, and year",
+    x = "Day of week",
+    y = "Median ride duration (minutes)",
+    color = "Month") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Median ride durations are longer in July than in January in both years. Rides are longer on weekends than on weekdays. Median durations in 2024 are shorter than in 2020.
