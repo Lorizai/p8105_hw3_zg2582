@@ -221,3 +221,26 @@ In all education groups, total activity tends to decrease with age. Women
 tend to have higher total activity than men in the high school equivalent and 
 more than high school groups. In the less than high school group, activity 
 declines more steeply with age.
+
+
+### Make a three-panel plot that shows the 24-hour activity time courses for each education level and use color to indicate sex. Describe in words any patterns or conclusions you can make based on this graph; including smooth trends may help identify differences.
+
+```{r activity_time_course, message = FALSE}
+nhanes_df |>
+  group_by(education, sex, minute) |>
+  summarize(mean_mims = mean(mims)) |>
+  ggplot(aes(x = minute, y = mean_mims, color = sex)) +
+  geom_line(alpha = .4) +
+  geom_smooth(se = FALSE) +
+  facet_grid(. ~ education) +
+  scale_x_continuous(
+    breaks = c(0, 360, 720, 1080, 1440),
+    labels = c("12am", "6am", "12pm", "6pm", "12am")) +
+  labs(
+    title = "24-hour activity by education and sex",
+    x = "Time of day",
+    y = "Mean activity (MIMS)",
+    color = "Sex")
+```
+
+In all three education groups, activity is lowest overnight, rises sharply in the morning, stays high through the day, and declines in the evening. The overall shape is very similar across education levels. Women tend to have slightly higher activity than men, while differences overnight are small.
