@@ -282,3 +282,9 @@ citibike_df =
   relocate(year, month)
 ```
 
+```{r citibike_summary}
+n_rides = nrow(citibike_df)
+n_start_stations = n_distinct(pull(citibike_df, start_station_name))
+```
+
+The combined dataset contains 99485 rides from four months (Jan and July of 2020 and 2024). Variables include a ride ID, the bike type (classic or electric), the day of the week, the ride duration in minutes, the start and end station names, whether the rider is a member or casual rider, and the year and month. Rides started from 2241 different stations.
