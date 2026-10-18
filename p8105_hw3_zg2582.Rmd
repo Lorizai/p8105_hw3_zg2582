@@ -191,3 +191,14 @@ covar_df |>
 ```
 
 According to the table, more than high school category has the most participants. In the high school equivalent category, men outnumber women, others have more women. Participants with less than high school education tend to be older, and those with more than high school education tend to be younger. Women in the high school equivalent group are older on average than men in that group.
+
+
+### Using your tidied dataset, aggregate across minutes to create a total activity variable for each participant.
+
+```{r total_activity, message = FALSE}
+total_activity_df =
+  nhanes_df |>
+  group_by(seqn, sex, age, education) |>
+  summarize(total_activity = sum(mims))
+```
+
