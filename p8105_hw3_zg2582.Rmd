@@ -302,3 +302,15 @@ citibike_df |>
 ```
 
 Members take far more rides than casual riders in every month. Ridership is much higher in July than in January in both years. Total rides increased substantially from 2020 to 2024. Casual riders make up a larger share of rides in July than in January.
+
+
+### Make a table showing the 5 most popular starting stations for July 2024; include the number of rides originating from these stations.
+
+```{r top_stations}
+citibike_df |>
+  filter(year == 2024, month == "July") |>
+  count(start_station_name) |>
+  filter(min_rank(desc(n)) <= 5) |>
+  arrange(desc(n)) |>
+  knitr::kable(col.names = c("Starting station", "Number of rides"))
+```
