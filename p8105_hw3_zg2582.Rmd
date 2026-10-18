@@ -165,3 +165,15 @@ accel_df =
 nhanes_df =
   inner_join(covar_df, accel_df, by = "seqn")
 ```
+
+### Produce a reader-friendly table for the number of men and women in each education category,
+
+```{r edu_sex_table}
+covar_df |>
+  count(education, sex) |>
+  pivot_wider(
+    names_from = sex,
+    values_from = n) |>
+  knitr::kable()
+```
+
