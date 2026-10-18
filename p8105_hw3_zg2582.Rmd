@@ -244,3 +244,41 @@ nhanes_df |>
 ```
 
 In all three education groups, activity is lowest overnight, rises sharply in the morning, stays high through the day, and declines in the evening. The overall shape is very similar across education levels. Women tend to have slightly higher activity than men, while differences overnight are small.
+
+
+## Problem 3
+
+### Import, clean, and tidy these data,
+
+```{r import_citibike}
+jan_2020_df =
+  read_csv("./data/Jan 2020 Citi.csv") |>
+  janitor::clean_names() |>
+  mutate(year = 2020, month = "January")
+
+jul_2020_df =
+  read_csv("./data/July 2020 Citi.csv") |>
+  janitor::clean_names() |>
+  mutate(year = 2020, month = "July")
+
+jan_2024_df =
+  read_csv("./data/Jan 2024 Citi.csv") |>
+  janitor::clean_names() |>
+  mutate(year = 2024, month = "January")
+
+jul_2024_df =
+  read_csv("./data/July 2024 Citi.csv") |>
+  janitor::clean_names() |>
+  mutate(year = 2024, month = "July")
+
+citibike_df =
+  bind_rows(jan_2020_df, jul_2020_df, jan_2024_df, jul_2024_df) |>
+  mutate(
+    month = factor(month, levels = c("January", "July")),
+    weekdays = factor(
+      weekdays,
+      levels = c("Monday", "Tuesday", "Wednesday", "Thursday",
+                 "Friday", "Saturday", "Sunday"))) |>
+  relocate(year, month)
+```
+
