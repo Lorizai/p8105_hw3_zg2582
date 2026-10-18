@@ -5,7 +5,7 @@ date: "2026-10-16"
 output: github_document
 ---
 
-### Problem 1
+## Problem 1
 
 ```{r setup}
 library(tidyverse)
@@ -128,3 +128,40 @@ tmax_tmin_plot + snow_plot
 ```
 
 Max and min temperature have a strong positive relationship. And the snowfall distributions are very similar across years.
+
+
+## Problem 2
+
+### Load, tidy, merge, and otherwise organize the data sets
+
+```{r warning = FALSE}
+covar_df =
+  read_csv("./data/nhanes_covar.csv", skip = 4, na = c("NA", "", ".")) |>
+  janitor::clean_names() |>
+  filter(age >= 21) |>
+  drop_na() |>
+  mutate(
+    sex = case_match(sex, 1 ~ "male", 2 ~ "female"),
+    sex = factor(sex, levels = c("male", "female")),
+    education = case_match(
+      education,
+      1 ~ "Less than high school",
+      2 ~ "High school equivalent",
+      3 ~ "More than high school"),
+    education = factor(
+      education,
+      levels = c("Less than high school", "High school equivalent", "More than high school")))
+
+accel_df =
+  read_csv("./data/nhanes_accel.csv") |>
+  janitor::clean_names() |>
+  pivot_longer(
+    min1:min1440,
+    names_to = "minute",
+    names_prefix = "min",
+    values_to = "mims") |>
+  mutate(minute = as.numeric(minute))
+
+nhanes_df =
+  inner_join(covar_df, accel_df, by = "seqn")
+```
