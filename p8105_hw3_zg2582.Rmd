@@ -177,3 +177,17 @@ covar_df |>
   knitr::kable()
 ```
 
+### and create a visualization of the age distributions for men and women in each education category.
+
+```{r age_dist_plot}
+covar_df |>
+  ggplot(aes(x = education, y = age, fill = sex)) +
+  geom_boxplot() +
+  labs(
+    title = "Age distribution by education and sex",
+    x = "Education",
+    y = "Age (years)",
+    fill = "Sex")
+```
+
+According to the table, more than high school category has the most participants. In the high school equivalent category, men outnumber women, others have more women. Participants with less than high school education tend to be older, and those with more than high school education tend to be younger. Women in the high school equivalent group are older on average than men in that group.
