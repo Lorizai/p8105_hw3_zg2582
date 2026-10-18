@@ -216,3 +216,8 @@ total_activity_df |>
     y = "Total activity (MIMS)",
     color = "Sex")
 ```
+
+In all education groups, total activity tends to decrease with age. Women 
+tend to have higher total activity than men in the high school equivalent and 
+more than high school groups. In the less than high school group, activity 
+declines more steeply with age.
