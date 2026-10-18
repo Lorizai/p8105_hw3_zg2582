@@ -202,3 +202,17 @@ total_activity_df =
   summarize(total_activity = sum(mims))
 ```
 
+### Plot these total activities (y-axis) against age (x-axis); your plot should compare men to women and have separate panels for each education level. Include a trend line or a smooth to illustrate differences.
+
+```{r total_activity_plot, message = FALSE}
+total_activity_df |>
+  ggplot(aes(x = age, y = total_activity, color = sex)) +
+  geom_point(alpha = .5) +
+  geom_smooth(se = FALSE) +
+  facet_grid(. ~ education) +
+  labs(
+    title = "Total daily activity by age, sex and education",
+    x = "Age (years)",
+    y = "Total activity (MIMS)",
+    color = "Sex")
+```
